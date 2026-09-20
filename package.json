@@ -1,0 +1,16 @@
+{
+  "name": "braille-layout-station",
+  "version": "1.0.0",
+  "description": "盲文标签排版台 —— 英文六点一级盲文转换、整词换行排版与毫米级凸点 SVG 预览",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

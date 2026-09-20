@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>盲文标签排版台 · Braille Layout Station</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cg fill='%23303f5e'%3E%3Ccircle cx='5' cy='4' r='1.6'/%3E%3Ccircle cx='11' cy='4' r='1.6'/%3E%3Ccircle cx='5' cy='8' r='1.6'/%3E%3Ccircle cx='11' cy='8' r='1.6'/%3E%3Ccircle cx='5' cy='12' r='1.6'/%3E%3Ccircle cx='11' cy='12' r='1.6'/%3E%3C/g%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>盲文标签排版台</h1>
+    <span class="subtitle">六点一级盲文 · 整词换行 · 毫米坐标凸点 SVG</span>
+  </header>
+
+  <main class="layout">
+    <section class="panel form-panel">
+      <h2>标签与板材参数</h2>
+      <form id="param-form" autocomplete="off">
+        <label class="full">
+          <span>英文标签内容 <em>（支持 A–Z、数字、常用标点；换行符即硬换行）</em></span>
+          <textarea id="text" rows="4" spellcheck="false">BRAILLE 2026 LABEL</textarea>
+        </label>
+
+        <div class="grid2">
+          <label>
+            <span>板材宽度 (mm)</span>
+            <input id="boardWidth" type="number" min="1" step="0.5" value="120" inputmode="decimal" />
+          </label>
+          <label>
+            <span>板材高度 (mm)</span>
+            <input id="boardHeight" type="number" min="1" step="0.5" value="60" inputmode="decimal" />
+          </label>
+          <label>
+            <span>点距 d (mm) <em>点1→点2/点1→点4，标准 2.5</em></span>
+            <input id="dotSpacing" type="number" min="0.1" step="0.1" value="2.5" inputmode="decimal" />
+          </label>
+          <label>
+            <span>行距 (mm) <em>相邻行对应点圆心距，标准 10</em></span>
+            <input id="lineGap" type="number" min="0.1" step="0.5" value="10" inputmode="decimal" />
+          </label>
+          <label>
+            <span>边距 (mm) <em>默认 5</em></span>
+            <input id="margin" type="number" min="0" step="0.5" value="5" inputmode="decimal" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="btn-example" class="ghost">填充示例</button>
+          <button type="button" id="btn-svg" class="primary" disabled>下载 SVG</button>
+          <button type="button" id="btn-json" class="primary" disabled>下载排版 JSON</button>
+        </div>
+      </form>
+
+      <div id="error-box" class="error-box hidden" role="alert"></div>
+      <div id="status-pill" class="status-pill">等待输入…</div>
+    </section>
+
+    <section class="panel preview-panel">
+      <div class="preview-head">
+        <h2>实时预览</h2>
+        <div class="legend">
+          <span><i class="sw sw-dot"></i>凸点（直径 1.5mm）</span>
+          <span><i class="sw sw-sign"></i>前缀符单元（大写/数字）</span>
+          <span><i class="sw sw-margin"></i>边距安全区</span>
+        </div>
+      </div>
+      <div id="preview" class="preview"></div>
+      <div id="cursor-coord" class="cursor-coord">光标毫米坐标：—</div>
+    </section>
+
+    <section class="panel info-panel">
+      <h2>转换与排版明细</h2>
+      <div id="stats" class="stats"></div>
+      <h3>盲文流（⡏⠕…）与换行结果</h3>
+      <div id="stream" class="stream"></div>
+      <h3>逐行明细</h3>
+      <div id="lines" class="lines"></div>
+      <h3>凸点毫米坐标</h3>
+      <div id="coords" class="coords"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    盲符点号：左上 1、左中 2、左下 3、右上 4、右中 5、右下 6 ｜ 数字段只加一个数字前缀（3-4-5-6）｜ 大写逐字母加前缀（6）
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
